@@ -1,4 +1,6 @@
 #!/bin/ksh
+# dr_db_startup_Wrapper.ksh
+
 clear the logfile
 log="/tmp/$0.logfile.`date '+%m%d%Y-%H%M%S'`.txt"
 # >$log
