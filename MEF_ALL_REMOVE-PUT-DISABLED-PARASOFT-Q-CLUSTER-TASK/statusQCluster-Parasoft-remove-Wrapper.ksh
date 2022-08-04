@@ -27,7 +27,7 @@
 
 
 # clear the logfile
-log="/tmp/`basename $0`.logfile.`date '+%m%d%Y-%H%M%S'`.txt"
+log="/tmp/statusQ.logfile.`date '+%m%d%Y-%H%M%S'`.txt"
 >$log
 
 pipe1="/tmp/regular_pipe.$$"
