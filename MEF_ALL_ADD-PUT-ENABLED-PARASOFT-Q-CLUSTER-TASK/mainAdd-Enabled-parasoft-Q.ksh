@@ -12,8 +12,8 @@
 ####################################################################################################
 
 # clear the logfile
-log="/tmp/$0.logfile.`date '+%m%d%Y-%H%M%S'`.txt"
-# >$log
+log="/tmp/statusQ.logfile.`date '+%m%d%Y-%H%M%S'`.txt"
+>$log
 
 pipe1="/tmp/regular_pipe.$$"
 pipe2="/tmp/error_pipe.$$"
@@ -28,7 +28,7 @@ tee -a $log >&2 < "$pipe2" &
 exec >"$pipe1"
 exec 2>"$pipe2"
 
-#chmod 644 $log
+chmod 644 $log
 
 #
 # start
@@ -36,8 +36,6 @@ exec 2>"$pipe2"
 date
 pwd
 id
-
-receiverAddr="$1"
 
 print ""
 print ""
@@ -77,69 +75,6 @@ chmod 644 $log
 # ==================== #
 #
 #########################################################
-
-# receiverAddr="$2"
-
-
-chmod 644 $log
-
-# do emailing
-
-messageBody=/tmp/messageBody
-cat /dev/null >${messageBody}
-
-fileToGet="$log"
-fileToGet_basename=`basename $log`
-fileToGetTMP="/tmp/${fileToGet_basename}"
-echo "[$fileToGetTMP]" >${messageBody}  
-box=`hostname `
-# reply_email="${box} <${senderAddr}>"
-subject="[ ${fileToGet_basename} ] from ${box}"
-sleep 10
-
-os_name=`uname `
-case $os_name in
-  SunOS)
-    for email in ${receiverAddr}
-    do
-      reply_email="${box} <${email}>"
-      echo "mailx -i -s ${subject} -r ${reply_email} ${email} < ${fileToGetTMP}"
-      # mailx -i -s "${subject}" -r "${reply_email}" ${email} < ${fileToGet}
-      mailx -i -s "${subject}" -r "${reply_email}" ${email} < ${fileToGetTMP}
-      
-# mailx -a ${fileToGet} -s "${subject}" -r "${reply_email}" ${email} < ${messageBody}
-
-      echo "${fileToGetTMP} Sent To: [${email}] ..."
-    done
-  ;;
-  Linux)
-    for email in ${receiverAddr}
-    do
-      # echo "mail -i -s ${subject} -r ${reply_email} ${email}<${fileToGetTMP}"
-       ls -ltr ${fileToGetTMP}
-sleep 15
-      # mail -i -s "${subject}" -r "${reply_email}" ${email}<${fileToGetTMP}
-
-      # echo "mailx -a ${fileToGetTMP} -i -s ${subject} -r ${reply_email} ${email} < ${fileToGetTMP}"
-      #mailx -a ${fileToGetTMP} -i -s "${subject}" -r "${reply_email}" ${email} < ${fileToGetTMP}
-
-      reply_email="${box} <${email}>"
-      echo "mailx -a ${fileToGetTMP} -i -s ${subject} -r ${reply_email} ${email}<${messageBody}"
-      mailx -a ${fileToGetTMP} -i -s "${subject}" -r "${reply_email}" ${email}<${messageBody}
-
-      echo "${fileToGetTMP} Sent To: [${email}] ..."
-    done
-  ;;
-  *)
-    for email in ${receiverAddr}
-    do
-      mail -i -s "${subject}" -r "${reply_email}" ${email} < ${fileToGetTMP}
-      # mailx -a ${fileToGet} -i -s "${subject}" -r "${reply_email}" ${email} < ${messageBody}
-      echo "${fileToGetTMP} Sent To: [${email}] ..."
-    done
-  ;;
-esac
-# adios
 
 exit
 
