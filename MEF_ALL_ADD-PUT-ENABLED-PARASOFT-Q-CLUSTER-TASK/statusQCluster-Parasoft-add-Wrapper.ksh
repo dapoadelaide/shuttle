@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/bin/bash
 #user:mqm
 #group:mqm
 #interp:sol
