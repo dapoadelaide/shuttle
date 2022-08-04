@@ -1,4 +1,4 @@
-#!/bin/ksh
+#!/bin/bash
 #user:mqm
 #group:mqm
 #interp:sol
@@ -28,8 +28,8 @@
 ####################################################################################################
 
 # clear the logfile
-log="/tmp/$0.logfile.`date '+%m%d%Y-%H%M%S'`.txt"
-# >$log
+log="/tmp/statusQ.logfile.`date '+%m%d%Y-%H%M%S'`.txt"
+>$log
 
 pipe1="/tmp/regular_pipe.$$"
 pipe2="/tmp/error_pipe.$$"
