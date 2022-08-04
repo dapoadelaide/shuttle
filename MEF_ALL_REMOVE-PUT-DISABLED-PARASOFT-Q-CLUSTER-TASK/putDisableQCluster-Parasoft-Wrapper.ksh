@@ -28,7 +28,7 @@
 
 # clear the logfile
 log="/tmp/statusQ.logfile.`date '+%m%d%Y-%H%M%S'`.txt"
-# >$log
+>$log
 
 pipe1="/tmp/regular_pipe.$$"
 pipe2="/tmp/error_pipe.$$"
